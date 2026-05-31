@@ -1,3 +1,19 @@
+import pytest
+import sys
+import os
+from datetime import datetime, timedelta
+import tempfile
+from database.database_manager import DatabaseManager
+
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+
+from controllers.task_controller import TaskController
+from controllers.project_controller import ProjectController
+from controllers.user_controller import UserController
+
+from models.project import Project
+from models.user import User
+from models.task import Task
 class TestProjectController:
     """Тесты для ProjectController"""
 

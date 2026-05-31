@@ -12,6 +12,10 @@ from controllers.task_controller import TaskController
 from controllers.project_controller import ProjectController
 from controllers.user_controller import UserController
 
+from models.project import Project
+from models.user import User
+from models.task import Task
+
 
 class TestTaskController:
     """Тесты для TaskController"""

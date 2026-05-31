@@ -2,25 +2,35 @@ from models.project import Project
 
 class ProjectController:
     def __init__(self, db_manager) -> None:
-        pass
+        self.db_manager = db_manager
 
     def add_project(self, name, description, start_date, end_date) -> int:
-        pass
+        project = Project(name, description, start_date, end_date)
+        return self.db_manager.add_project(project)
 
     def get_project(self, project_id) -> Project | None:
-        pass
+        return self.db_manager.get_project_by_id(project_id)
 
     def get_all_projects(self) -> list[Project]:
-        pass
+        return self.db_manager.get_all_projects()
 
     def update_project(self, project_id, **kwargs) -> bool:
-        pass
+        return self.db_manager.update_project(project_id, **kwargs)
 
     def delete_project(self, project_id) -> bool:
-        pass
+        return self.db_manager.delete_project(project_id)
 
     def update_project_status(self, project_id, new_status) -> bool:
-        pass
+        project = self.get_project(project_id)
+        if project and project.update_status(new_status):
+            return self.db_manager.update_project(project_id, status=project.status)
+        return False
 
     def get_project_progress(self, project_id) -> float:
-        pass
+        project = self.get_project(project_id)
+        if not project:
+            return 0.0
+
+        tasks = self.db_manager.get_tasks_by_project(project_id)
+        project.tasks = tasks
+        return project.get_progress()
